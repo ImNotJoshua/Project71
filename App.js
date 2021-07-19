@@ -1,49 +1,39 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
-import {CreateAppContainer} from 'react-navigation';
-import {CreateBottomTabNavigator} from 'react-navigation-tabs';
-import WriteStoryScreen from './screens/WriteStoryScreen'
-import ReadStoryScreen from './screens/ReadStoryScreens'
+import {Image } from 'react-native';
+import WriteScreen from './screens/writeScreen'
+import ReadScreen from './screens/readScreen'
+import {createAppContainer} from 'react-navigation'
+import {createBottomTabNavigator} from 'react-navigation-tabs'
 
-export default function App() {
+export default class App extends React.Component {
+  render(){
     return (
-      <View style={styles.container}>
-        <AppContainer>x</AppContainer>
-        <StatusBar style="auto" />
-      </View>
+        <AppContainer/>
     );
-  }
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#3399FF',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
-  
-  const TabNavigator=createBottomTabNavigator({
-    WriteStory:{screen:WriteStoryScreen},
-    ReadStory:{screen:ReadStoryScreen},
-  })
-  
-  defaultNavigationOptions: ({navigation}) => ({
-    tabBarIcon:({}) => {
-      const routeName=navigation.state.routeName
-      if(routeName === 'WriteStory')
-      {
+  } 
+}
 
-  
-      }else if (routeName === 'ReadStory')
+const TabNavigator=createBottomTabNavigator({
+  writeStory:{screen:WriteScreen},
+  readStory:{screen:ReadScreen},
+},
+{
+  defaultNavigationOptions: ({navigation}) => ({
+    tabBarIcon:() => {
+      const routeName=navigation.state.routeName
+      if(routeName === 'readStory')
       {
+        return(<Image source={require('./assets/read.png')}
+        style = {{width: 40, height: 40}}/>)
+  
+      }else if (routeName === 'writeStory')
+      {
+        return(<Image source={require('./assets/write.png')}
+        style = {{width: 40, height:40}}/>)
       }
     }
-  })
-  
-  const AppContainer=createAppContainer(
-    TabNavigator
-  )
-  /* Ma'am I think I was able to complete this entire project but if you find anything wrong or incomplete we'll
-  solve in next class */
+})
+});
+
+const AppContainer=createAppContainer(TabNavigator)
   
